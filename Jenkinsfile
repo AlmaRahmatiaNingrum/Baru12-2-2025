@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
@@ -11,8 +12,25 @@ pipeline {
 
         stage('Run PHP') {
             steps {
-                powershell 'php index.php'
+                powershell '''
+                    if (Test-Path "index.php") {
+                        Write-Host "Menjalankan index.php..."
+                        php index.php
+                    } else {
+                        Write-Host "index.php TIDAK ditemukan!"
+                        exit 1
+                    }
+                '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline berjalan dengan sukses!'
+        }
+        failure {
+            echo 'Pipeline gagal. Periksa error di console.'
         }
     }
 }
