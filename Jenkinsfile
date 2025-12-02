@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/USERNAME/REPO.git'
+                    url: 'https://github.com/AlmaRahmatiaNingrum/Baru12-2-2025.git'
             }
         }
 
